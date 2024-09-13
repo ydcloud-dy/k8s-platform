@@ -124,14 +124,9 @@ services:
       timeout: 5s
       retries: 3
 ```
-
-![image-20240913100209943](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100209943.png)
-
-![image-20240913100302197](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100302197.png)
-
-![image-20240913100320348](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100320348.png)
-
-![image-20240913100327748](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100327748.png)
-
-![image-20240913100335671](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100335671.png)
+![image-20240913100209943](images/image-20240913100209943.png)
+![image-20240913100302197](images/image-20240913100302197.png)
+![image-20240913100320348](images/image-20240913100320348.png)
+![image-20240913100327748](images/image-20240913100327748.png)
+![image-20240913100335671](images/image-20240913100335671.png)
 
