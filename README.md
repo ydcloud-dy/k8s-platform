@@ -14,8 +14,6 @@
 4. 集成Prometheus 监控能力（未完成）。
 5. 集成CloudTTY 能力。(CloudTTY 是专为 Kubernetes 云原生环境打造的 Web 终端和 Cloud Shell Operator。 通过 CloudTTY，操控多云资源。）
 6. NodeShell 能力。
-=======
-8. NodeShell 能力。
 7. 提供多云资产管理功能，目前包括阿里云、腾讯云、华为云，主要包括云上负载均衡、云服务器、云数据库。
 8. 提供本地资产管理，可根据项目隔离主机，批量导入主机（未完成）
 
