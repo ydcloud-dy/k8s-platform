@@ -122,6 +122,8 @@ services:
       timeout: 5s
       retries: 3
 ```
+### 测试账号： public/123456
+
 ![image-20240913100209943](images/image-20240913100209943.png)
 ![image-20240913100302197](images/image-20240913100302197.png)
 ![image-20240913100320348](images/image-20240913100320348.png)
