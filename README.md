@@ -37,3 +37,101 @@
 
 ### 3、项目部署
 
+docker-compose
+
+```shell
+version: "3.4"
+
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '177.7.0.0/16'
+
+volumes:
+  mysql:
+
+services:
+  web:
+    container_name: k8s-web
+    image: registry.cn-hangzhou.aliyuncs.com/dyclouds/k8s-front:latest
+    restart: always
+    ports:
+      - '8080:8080'
+    depends_on:
+      - server
+    command: [ 'nginx-debug', '-g', 'daemon off;' ]
+    networks:
+      network:
+          ipv4_address: 177.7.0.11
+
+  mysql:
+    image: registry.cn-hangzhou.aliyuncs.com/dyclouds/dycloud-mysql:5.7
+    container_name: dycloud-mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: '123456'
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      network:
+          ipv4_address: 177.7.0.13
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -uroot -p123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    container_name: k8s-server
+    image: registry.cn-hangzhou.aliyuncs.com/dyclouds/k8s-backend:latest
+    restart: always
+    ports:
+      - '8888:8888'
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      network:
+          ipv4_address: 177.7.0.12
+    healthcheck:
+      test: ["CMD", "nc",  "mysql", "3306"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  redis:
+    image: registry.cn-hangzhou.aliyuncs.com/dyclouds/redis:7.0
+    container_name: dycloud-redis
+    restart: always
+    volumes:
+      - /root/clash/redis.conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    command: ["sh", "-c", "mkdir -p /var/lib/redis && redis-server /usr/local/etc/redis/redis.conf"]
+    ports:
+      - '6379:6379'
+    networks:
+      network:
+          ipv4_address: 177.7.0.14
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+```
+
+![image-20240913100209943](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100209943.png)
+
+![image-20240913100302197](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100302197.png)
+
+![image-20240913100320348](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100320348.png)
+
+![image-20240913100327748](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100327748.png)
+
+![image-20240913100335671](/Users/dujie/Library/Application Support/typora-user-images/image-20240913100335671.png)
+
